@@ -89,8 +89,9 @@ void LcmSlave::handleUartData(quint8 , QByteArray d)
         emit updateUserParams(data);
     }
     break;
-    case 0x88: {
-        QByteArray data = d;
+    case 0x88: { // Get Data
+        QByteArray data;
+        emit collectChargerData(1, data);
         QByteArray head;
         head.append(char(0x68)).append(char(0)).append(char(0x88)).append(char(sizeof(lcm_slave_mcu_params_t)));
         data.prepend(head);
